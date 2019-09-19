@@ -1,0 +1,39 @@
+<div class="audioControl">
+  <input type="file" class="fileSelector">
+  <button id="play">再生</button>
+  <button id="pause">停止</button>
+</div>
+<script>
+  // let audio = new Audio();
+  // audio.src = 'audio.mp3';
+  // audio.load();
+
+  function reloadFileURL(file){
+    audio = new Audio();
+    audio.src = window.URL.createObjectURL(file);
+    audio.load();
+  }
+
+  document.querySelector('.fileSelector').addEventListener('change', function(event) {
+    var tmpfile = event.target.files[0];
+    if (!(tmpfile instanceof File)) {
+      window.alert('Please upload file.');
+    } else if (tmpfile.type.indexOf('audio') === -1) {
+      window.alert('Please upload audio file.');
+    } else {
+      var file = tmpfile;
+      reloadFileURL(file);
+    }
+  }, false);
+
+  // 再生
+  document.getElementById('play').addEventListener('click', () => {
+    audio.currentTime = 0;
+    audio.play();
+  }, false);
+
+  // 停止
+  document.getElementById('pause').addEventListener('click', () => {
+    audio.pause();
+  }, false);
+</script>
